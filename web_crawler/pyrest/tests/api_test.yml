@@ -1,0 +1,30 @@
+- config:
+    - testset: "Basic tests"
+    - timeout: 100  # Increase timeout from the default 10 seconds
+- test: 
+    - name: "Basic get"
+    - url: "/prod/webcrawler"
+- test: 
+    - name: "Get single URL"
+    - url: "/prod/websites?websiteId=1001"
+- test: 
+    - name: "Delete a single URL, verify that works"
+    - url: "/prod/websites"
+    - method: 'DELETE'
+    - body: '{"websiteId":"1002"}'
+- test: # create entity by PATCH
+    - name: "Create/update URL"
+    - url: "/prod/websites"
+    - method: "PATCH"
+    - body: '{"websiteId": "1002","updateKey": "web_URL", "updateValue": "fiverr.com"}'
+    - headers: {'Content-Type': 'application/json'}
+    # - validators:  # This is how we do more complex testing!
+    #     - compare: {header: content-type, comparator: contains, expected:'json'}
+    #     - compare: {jsonpath_mini: 'login', expected: 'gbaltar'}  # JSON extraction
+    #     - compare: {raw_body:"", comparator:contains, expected: 'Baltar' }  # Tests on raw response
+- test: # create entity by POST
+    - name: "Create URL"
+    - url: "/prod/websites"
+    - method: "POST"
+    - body: '{"websiteId": "1003","web_URL": "upwork.com"}'
+    - headers: {Content-Type: application/json}

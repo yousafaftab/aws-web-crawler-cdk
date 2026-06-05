@@ -1,0 +1,15 @@
+- config:
+    - testset: "Benchmark tests using test app"
+
+- benchmark: # create entity
+    - name: " get"
+    - url: "/prod/WebCrawler"
+    - warmup_runs: 2
+    - 'benchmark_runs': '10'
+    - output_file: 'miniapp-benchmark.csv'
+    - metrics:
+        - total_time
+        - total_time: mean
+        - total_time: median
+        - size_download
+        - speed_download: median
